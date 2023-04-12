@@ -1,0 +1,26 @@
+- name: create k3s vms
+  hosts: "*"
+  become: yes
+  vars_files:
+    - "../group_vars/dhcp_reservations.yml"
+  tasks:
+    - name: create vm clone with parameters
+      shell: qm clone 8000 {{ item.id }} --name {{ item.hostname }} --full
+      loop: "{{ vm_details }}"
+      tags: create
+
+    - name: set vm MAC address
+      shell: qm set {{ item.id }} -net0 virtio={{ item.mac }},bridge=vmbr0
+      loop: "{{ vm_details }}"
+      tags: config
+
+    - name: start VMs
+      shell: qm start {{ item.id }}
+      loop: "{{ vm_details }}"
+      tags: startvms
+
+    - name: enable qemu agent
+      shell: qm set {{ item.id }} --agent enabled=1
+      loop: "{{ vm_details }}"
+      tags: enableagent      
+      

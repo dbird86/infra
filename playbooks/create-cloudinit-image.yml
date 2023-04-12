@@ -1,0 +1,24 @@
+- name: Setup Cloud Image with Cloud Init
+  hosts: "*"
+  become: yes
+  tasks:
+  - name: create vm
+    shell: qm create 8000 --memory 4096 --core 4 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+
+  - name: import ubuntu disk to local-zfs
+    shell: qm importdisk 8000 jammy-server-cloudimg-amd64.img local-zfs
+
+  - name: attach disk to vm as scsi drive
+    shell: qm set 8000 --scsihw virtio-scsi-pci --scsi0 local-zfs:vm-8000-disk-0
+
+  - name: add cloud init drive
+    shell: qm set 8000 --ide2 local-zfs:cloudinit
+
+  - name: make cloud init drive bootable
+    shell: qm set 8000 --boot c --bootdisk scsi0
+
+  - name: set network to dhcp
+    shell: qm set 8000 --ipconfig0 ip=dhcp
+    
+  - name: add serial console
+    shell: qm set 8000 --serial0 socket --vga serial0   

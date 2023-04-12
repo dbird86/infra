@@ -1,0 +1,6 @@
+vm_details:
+  - {id: 101, mac: 16:fa:c3:71:4a:bd, ip: 192.168.1.220, hostname: luke}
+  - {id: 102, mac: a6:08:e8:50:38:34, ip: 192.168.1.221, hostname: leia}
+  - {id: 103, mac: ee:50:49:cf:ca:fe, ip: 192.168.1.222, hostname: han}
+  - {id: 104, mac: 4e:e6:8f:ee:53:4a, ip: 192.168.1.223, hostname: chewbacca}
+  - {id: 105, mac: 0e:07:b5:57:53:9b, ip: 192.168.1.224, hostname: yoda}
