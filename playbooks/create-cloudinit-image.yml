@@ -3,7 +3,7 @@
   become: yes
   tasks:
   - name: create vm
-    shell: qm create 8000 --memory 4096 --core 4 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
+    shell: qm create 8000 --memory 2048 --core 2 --name ubuntu-cloud --net0 virtio,bridge=vmbr0
 
   - name: import ubuntu disk to local-zfs
     shell: qm importdisk 8000 jammy-server-cloudimg-amd64.img local-zfs

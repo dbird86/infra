@@ -1,4 +1,4 @@
-- name: create k3s vms
+- name: create vms
   hosts: "*"
   become: yes
   vars_files:
